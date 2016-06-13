@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>watch</title>
+</head>
+<style>
+	#canvas{
+		position: absolute;
+		margin:auto;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+	}
+</style>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+	<script>
+	var canvas = document.querySelector('#canvas');
+	var ctx = canvas.getContext('2d');
+	var r = function(deg){
+    	return (Math.PI/180)*deg;
+    }
+
+     //    ctx.save();
+	    // ctx.beginPath();
+	    // var da = ctx.createLinearGradient(0,0,1200,800);
+     //    da.addColorStop(0,'#F8F7F6');
+     //    da.addColorStop(0.5,'#FAF9F8');
+     //    da.addColorStop(1,'#FCFCFC');
+	    // ctx.fillStyle = da;
+	    // ctx.fill();
+	    // ctx.closePath();
+	    // ctx.restore();
+
+
+    var render = function(){
+    	ctx.clearRect(0,0,600,600);
+
+        ctx.save();
+	    ctx.beginPath();
+	    var bg = ctx.createLinearGradient(400,0,500,600);
+	    bg.addColorStop(0,'#FDFDFD');
+	    bg.addColorStop(0.5,'#FAF9F8');
+	    bg.addColorStop(1,'#EAE8E7');
+	    ctx.fillStyle = bg;
+	    ctx.fillRect(0,0,600,600);
+	    ctx.closePath();
+	    ctx.restore();
+
+
+    	ctx.save();
+	    ctx.translate(300,300);
+	    
+	    // 画表盘
+	    ctx.save();
+	    ctx.beginPath();
+	    ctx.arc(0,0,200,0,r(360));
+	    var change = ctx.createLinearGradient(0,-200,0,200);
+        change.addColorStop(0,'#FDFDFD');
+        change.addColorStop(0.5,'#FCFBFB');
+        change.addColorStop(1,'#F6F4F2');
+        ctx.shadowOffsetX = 20;
+        ctx.shadowOffsetY = 38;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+	    ctx.fillStyle = change;
+	    ctx.fill();
+	    ctx.closePath();
+	    ctx.restore();
+
+        ctx.save();
+	    ctx.beginPath();
+	    ctx.arc(0,0,201,0,r(360));
+	    ctx.shadowBlur = 1;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+	    ctx.strokeStyle = '#F5F5F5';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+
+
+        ctx.save();
+	    ctx.beginPath();
+	    ctx.arc(0,0,201,0,r(130));
+	    ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+	    ctx.strokeStyle = '#A5A09B';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+
+        
+        ctx.save();
+	    ctx.beginPath();
+	    ctx.arc(0,0,180,0,r(360));
+	    var bian = ctx.createLinearGradient(-20,-180,20,180);
+        bian.addColorStop(0,'#F8F7F6');
+        bian.addColorStop(0.5,'#FAF9F8');
+        bian.addColorStop(1,'#FCFCFC');
+	    ctx.fillStyle = bian;
+	    ctx.fill();
+	    ctx.closePath();
+	    ctx.restore();
+
+
+        ctx.save();
+	    ctx.beginPath();
+	    ctx.arc(0,0,179,135,r(330));
+        ctx.shadowBlur = 3;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+	    ctx.strokeStyle = '#F2F2F2';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+
+	    ctx.save();
+	    ctx.beginPath();
+	    ctx.arc(0,0,181,0,r(360));
+	    ctx.shadowBlur = 5;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+	    ctx.strokeStyle = '#F2F2F2';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+        
+        
+        var now = new Date();
+        
+
+        //画时针
+	    var h = now.getHours();
+	    var ff = now.getMinutes();
+	    var mm = now.getSeconds();
+	    var hdeg = 360 * ( (h*3600 + ff*60 + mm) / 43200 );
+	    ctx.save();
+	    ctx.beginPath();
+	    ctx.rotate( r(hdeg) );
+	    ctx.lineWidth = '15';
+	    ctx.lineCap = 'round';
+	    ctx.moveTo(0,5);
+	    ctx.lineTo(0,15);
+	    ctx.moveTo(0,-5);
+	    ctx.lineTo(0,-50);
+	    ctx.strokeStyle = '#52483E';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+
+
+
+        //画分针
+
+	    ctx.save();
+	    ctx.beginPath();
+	    ctx.rotate( r(deg) );
+	    ctx.lineWidth = '15';
+	    ctx.lineCap = 'round';
+	    ctx.moveTo(0,5);
+	    ctx.lineTo(0,15);
+	    ctx.moveTo(0,-5);
+	    ctx.lineTo(0,-100);
+	    ctx.strokeStyle = '#52483E';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+
+        var f = now.getMinutes();
+	    var m = now.getSeconds();
+	    var deg = 360 * ( (f*60 + m) / 3600 );
+	    ctx.save();
+	    ctx.beginPath();
+	    ctx.rotate( r(deg) );
+	    ctx.arc(0,0,15,0,r(360));
+	    var inside = ctx.createLinearGradient(0,-15,0,15);
+        inside.addColorStop(0,'#8B8174');
+        inside.addColorStop(1,'#52483E');
+	    ctx.fillStyle = inside;
+	    ctx.fill();
+	    ctx.closePath();
+	    ctx.restore();
+
+
+	    //画秒针
+	    
+	    var z = now.getSeconds()*1000 + now.getMilliseconds();
+	    var second = 360 * (z/60000);
+	    ctx.save();
+	    ctx.beginPath();
+	    ctx.rotate( r(second) );
+	    ctx.arc(0,0,5,0,r(360));
+	    ctx.moveTo(0,5);
+	    ctx.lineTo(0,15);
+	    ctx.moveTo(0,-5);
+	    ctx.lineTo(0,-150);
+	    ctx.fillStyle = '#C15C49';
+	    ctx.fill();
+	    ctx.strokeStyle = '#C15C49';
+	    ctx.stroke();
+	    ctx.closePath();
+	    ctx.restore();
+        
+
+        ctx.save();
+	    ctx.beginPath();
+	    ctx.font = "26px Arial";
+        ctx.fillStyle = "Black";
+        ctx.fillText("12", -15, -150);
+        ctx.fillText("3", 155, 10);
+        ctx.closePath();
+	    ctx.restore();
+
+
+	   
+
+	    ctx.restore();
+    }
+    render();
+    setInterval(render,1);
+
+    // document.onclick = function(){
+    // 	canvas.width = canvas.height = 600;
+    // 	ctx.clearRect(0,0,600,600);
+    // }
+	</script>
+</body>
+</html>
