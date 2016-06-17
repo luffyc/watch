@@ -23,16 +23,7 @@
     	return (Math.PI/180)*deg;
     }
 
-     //    ctx.save();
-	    // ctx.beginPath();
-	    // var da = ctx.createLinearGradient(0,0,1200,800);
-     //    da.addColorStop(0,'#F8F7F6');
-     //    da.addColorStop(0.5,'#FAF9F8');
-     //    da.addColorStop(1,'#FCFCFC');
-	    // ctx.fillStyle = da;
-	    // ctx.fill();
-	    // ctx.closePath();
-	    // ctx.restore();
+   
 
 
     var render = function(){
@@ -153,7 +144,10 @@
 
 
         //画分针
-
+        
+        var f = now.getMinutes();
+	    var m = now.getSeconds();
+	    var deg = 360 * ( (f*60 + m) / 3600 );
 	    ctx.save();
 	    ctx.beginPath();
 	    ctx.rotate( r(deg) );
@@ -168,9 +162,7 @@
 	    ctx.closePath();
 	    ctx.restore();
 
-        var f = now.getMinutes();
-	    var m = now.getSeconds();
-	    var deg = 360 * ( (f*60 + m) / 3600 );
+        
 	    ctx.save();
 	    ctx.beginPath();
 	    ctx.rotate( r(deg) );
